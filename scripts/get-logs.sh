@@ -1,13 +1,13 @@
 
-if [ "$#" -ne 3 ]; then
-    echo "Wrong paramters. Usage: ./get-logs.sh <identity_file> <exp_name> <y|n for downloading models>"
+if [ "$#" -ne 4 ]; then
+    echo "Wrong paramters. Usage: ./get-logs.sh <identity_file> <servers> <exp_name> <y|n for downloading models>"
     exit
 fi
 
-mapfile -t servers < servers.txt
+mapfile -t servers < $2
 export CREDENTIAL_PATH=$1
-mkdir -p $2
-cd $2
+mkdir -p $3
+cd $3
 
 SAMPLER=${servers[0]}
 SCANNERS=("${servers[@]:1}")
@@ -21,7 +21,7 @@ scp -o "StrictHostKeyChecking=no" -i $CREDENTIAL_PATH ubuntu@$SAMPLER:/mnt/train
 scp -o "StrictHostKeyChecking=no" -i $CREDENTIAL_PATH ubuntu@$SAMPLER:/mnt/testing.log ./testing-sampler.log &
 scp -o "StrictHostKeyChecking=no" -i $CREDENTIAL_PATH ubuntu@$SAMPLER:/mnt/models/performance.csv ./performance-sampler.csv &
 
-if [ "$3" = "y" ]; then
+if [ "$4" = "y" ]; then
     scp -o "StrictHostKeyChecking=no" -r -i ~/ddocuments/vault/aws/aws-brain.pem ubuntu@$SAMPLER:/mnt/models/ ./models &
 fi
 
