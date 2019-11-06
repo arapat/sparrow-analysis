@@ -1,4 +1,6 @@
 servers.txt
+*.pem
+
 .ipynb_checkpoints
 *-logs
 archive/
