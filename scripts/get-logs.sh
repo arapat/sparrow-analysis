@@ -22,7 +22,8 @@ scp -o "StrictHostKeyChecking=no" -i $CREDENTIAL_PATH ubuntu@$SAMPLER:/mnt/testi
 scp -o "StrictHostKeyChecking=no" -i $CREDENTIAL_PATH ubuntu@$SAMPLER:/mnt/models/performance.csv ./performance-sampler.csv &
 
 if [ "$4" = "y" ]; then
-    scp -o "StrictHostKeyChecking=no" -r -i ~/ddocuments/vault/aws/aws-brain.pem ubuntu@$SAMPLER:/mnt/models/ ./models &
+    rm -rf ./models
+    scp -o "StrictHostKeyChecking=no" -r -i $CREDENTIAL_PATH ubuntu@$SAMPLER:/mnt/models/ ./models &
 fi
 
 wait
