@@ -1,6 +1,8 @@
 servers.txt
 *.pem
+.DS_Store
 
 .ipynb_checkpoints
 *-logs
 archive/
+logs/
